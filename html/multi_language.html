@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multi language</title>
+</head>
+<body>
+    <select id="language">
+        <option value="eng">English</option>
+        <option value="arb">Arabic</option>
+    </select>
+
+    <h1 id="header">im Xaled</h1>
+    <p id="text">hello shiyar jemo</p>
+
+    <script>
+        var header = document.getElementById("header");
+        var text = document.getElementById("text");
+        var language = document.getElementById("language");
+
+        function xaled(){
+            if (language.value == "eng") {
+                localStorage.setItem("header","im Xaled");
+                localStorage.setItem("text","hello shiyar jemo");
+                header.innerHTML = localStorage.getItem("header");
+                text.innerHTML = localStorage.getItem("text");
+            }else{
+                localStorage.setItem("header","انا خالد");
+                localStorage.setItem("text","مرحبا شيار جيمو");
+
+                header.innerHTML = localStorage.getItem("header");
+                text.innerHTML = localStorage.getItem("text");
+            }
+            }
+        language.onchange = () =>{
+            xaled();
+        }
+        onload = () =>{
+            xaled();
+        }
+        
+
+    </script>
+</body>
+</html>

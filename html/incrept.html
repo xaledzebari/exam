@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>code editor</title>
+    <style>
+        div{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <textarea id="code" style="width: 80%; height:250px; padding: 2px;" placeholder="text ....."></textarea>
+    </div>
+    <div>
+        <select id="select" style="font-size: 20px;">
+            <option value="enc">Encrept</option>
+            <option value="dec">Decrypt</option>
+        </select>
+    </div>
+    <hr> <div>
+            <h2>Result</h2>
+        </div> <hr>
+    <p id="result"></p>
+
+
+<script>
+    var code = document.getElementById("code");
+    var select = document.getElementById("select");
+    var result = document.getElementById("result");
+
+    function xaled(){
+        if (select.value == "enc") {
+            result.innerHTML = btoa(code.value);
+        }else{
+            result.innerHTML = atob(code.value);
+        }
+    }
+
+    code.oninput = () =>{
+        xaled();
+    }
+
+    onload = () =>{
+        xaled();
+    }
+</script>
+</body>
+</html>

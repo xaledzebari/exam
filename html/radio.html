@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>radio</title>
+<style>
+    *{
+        margin: 0px;
+    }
+    body{
+        background: whitesmoke;
+    }
+    #bg{
+        width: 500px; height:300px; background: rgb(94, 184, 219);
+        position: absolute; left: 50%;
+        transform: translate(-50%);
+    }
+    .logo{
+        width: 100px; height: 100px;
+        position: absolute; left: 50%;
+        transform: translate(-50%);
+        margin-top: 10px;
+    }
+    .item{
+        width: 240px;
+        text-align: center;
+        position: absolute; left: 50%;
+        transform: translate(-50%);
+        margin-top: 180px;
+    }
+    .btn{
+        width: 50px; height: 50px;
+        margin: 10px;
+    }
+    .btn:hover{
+        opacity: 0.8;
+    }
+    #radioName{
+        margin-top: 30px; font-size: 22px;
+    }
+    input[type=range]{
+        margin-top: 5px;
+    }
+    p{
+        margin-top: 30px;
+    }
+
+
+</style>
+</head>
+<body>
+    <div id="bg">
+        <img class="logo" src="../img/music-icon-radio-png.webp" alt="">
+        <div class="item">
+            <img id="back" class="btn" src="../img/back.png" alt="">
+            <img id="middle" class="btn" src="../img/play.png" alt="">
+            <img id="next" class="btn" src="../img/next.png" alt="">
+            <h3 id="name">Play Radio</h3>
+            <audio id="radio" ></audio>
+            <p>Volume</p>
+            <input id="volume" type="range" min="0" max="100" value="100">
+            <p>Speed</p>
+            <input id="speed" type="range"min="0" max="10" value="5">
+        </div>
+    </div>
+<script>
+    var bg = document.getElementById("bg");
+    var backk = document.getElementById("back");
+    var midd = document.getElementById("middle");
+    var nextt = document.getElementById("next");
+    var text = document.getElementById("name");
+    var radioo = document.getElementById("radio");
+    var vol = document.getElementById("volume");
+    var speed = document.getElementById("speed");
+    var check = false;
+    var count = 0;
+    var linkRadio = [
+            "https://l3.itworkscdn.net/itwaudio/9006/stream",
+            "http://radyolar.yayindinle.net:7764/;audio.mp3",
+            "http://edge.mixlr.com/channel/qtgru"
+        ];
+        var nameRadio = ["Rudaw FM","Havin FM","Arta FM"];
+    class Radio{
+        constructor(){
+            bg.style.height = screen.height-50 + "px";
+            this.screen();
+            this.playAndPause();
+            this.next();
+            this.back();
+            this.sound();
+            this.speed();
+        }
+        screen(){
+            onresize = () =>{
+                if (screen.width < 650) {
+                    bg.style.width = "100%";
+                    bg.style.height = "300px";
+                }else{
+                    bg.style.width = "500px";
+                    bg.style.height = screen.height-50 + "px";
+                }
+            }
+        }
+        play(){
+            midd.src = "../img/pause.png"
+            radioo.src = linkRadio[count];
+            radioo.play();
+            text.innerHTML = nameRadio[count];
+            check = true;
+        }
+        playAndPause(){
+            midd.onclick = () =>{
+                if (check == false) {
+                    this.play();
+                }else{
+                    midd.src = "../img/play.png"
+                    radioo.pause();
+                    check = false;
+                }
+            }
+        }
+
+        next(){
+            nextt.onclick = () =>{
+                ++count;
+                if (count > linkRadio.length-1) {
+                    count = 0;
+                }
+                this.play();
+            }
+        }
+
+        back(){
+            backk.onclick = () =>{
+                --count;
+                if (count < 0) {
+                    count = linkRadio.length-1;
+                }
+                this.play();
+            }
+        }
+
+        sound(){
+            vol.oninput = () =>{
+                radioo.volume = vol.value*0.01;
+            }
+        }
+
+        speed(){
+            speed.oninput = () =>{
+                radioo.playbackRate = speed.value*0.2;
+            }
+        }
+    }
+    onload = new Radio();
+ 
+</script>
+</body>
+</html>
